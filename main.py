@@ -323,37 +323,3 @@ if __name__ == "__main__":
             use_concurrent = False
         # endregion
         execute()
-        # ======================
-# Server酱 推送（完美适配原版mimotion）
-# ======================
-def serverchan_push(sendkey, title, content):
-    import requests
-    if not sendkey:
-        return
-    url = f"https://sctapi.ftqq.com/{sendkey}.send"
-    data = {
-        "title": title,
-        "desp": content
-    }
-    try:
-        res = requests.post(url, data=data, timeout=15)
-        ret = res.json()
-        if ret.get("code") == 0 or ret.get("errno") == 0:
-            print("✅ Server酱推送成功")
-        else:
-            print("❌ Server酱推送失败:", ret)
-    except Exception as e:
-        print("❌ Server酱推送异常:", str(e))
-
-# 读取配置
-SERVERCHAN_KEY = config.get("SERVERCHAN_KEY", "")
-
-# 推送（使用原项目真实变量名，不报错）
-if SERVERCHAN_KEY:
-    push_title = "🏃 小米运动刷步完成"
-    push_msg = f"""
-执行完成！
-成功账号：{success} 个
-失败账号：{failed} 个
-"""
-    serverchan_push(SERVERCHAN_KEY, push_title, push_msg)
