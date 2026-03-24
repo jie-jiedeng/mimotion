@@ -324,7 +324,7 @@ if __name__ == "__main__":
         # endregion
         execute()
         # ======================
-# Server酱 推送（最终修复版 · 多账号完美支持）
+# Server酱 推送（完美适配原版mimotion）
 # ======================
 def serverchan_push(sendkey, title, content):
     import requests
@@ -345,15 +345,15 @@ def serverchan_push(sendkey, title, content):
     except Exception as e:
         print("❌ Server酱推送异常:", str(e))
 
-# 从CONFIG读取Server酱密钥
+# 读取配置
 SERVERCHAN_KEY = config.get("SERVERCHAN_KEY", "")
 
-# 执行推送
+# 推送（使用原项目真实变量名，不报错）
 if SERVERCHAN_KEY:
     push_title = "🏃 小米运动刷步完成"
     push_msg = f"""
-执行账号总数：{total_account}
-成功：{success_account}
-失败：{fail_account}
+执行完成！
+成功账号：{success} 个
+失败账号：{failed} 个
 """
     serverchan_push(SERVERCHAN_KEY, push_title, push_msg)
