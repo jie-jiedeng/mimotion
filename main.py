@@ -298,6 +298,7 @@ if __name__ == "__main__":
             exit(1)
         # 创建推送配置对象
         push_config = push_util.PushConfig(
+            serverchan_key=config.get('SERVERCHAN_KEY'),
             push_plus_token=config.get('PUSH_PLUS_TOKEN'),
             push_plus_hour=config.get('PUSH_PLUS_HOUR'),
             push_plus_max=get_int_value_default(config, 'PUSH_PLUS_MAX', 30),
