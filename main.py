@@ -324,7 +324,7 @@ if __name__ == "__main__":
         # endregion
         execute()
         # ======================
-        # Server酱 推送
+        # Server酱 推送（多账号完美适配）
         # ======================
 def serverchan_push(sendkey, title, content):
     import requests
@@ -336,20 +336,23 @@ def serverchan_push(sendkey, title, content):
         "desp": content
     }
     try:
-        res = requests.post(url, data=data, timeout=10)
+        res = requests.post(url, data=data, timeout=15)
         ret = res.json()
-        if ret.get("code") == 0:
-            print("Server酱推送成功")
+        if ret.get("code") == 0 or ret.get("errno") == 0:
+            print("✅ Server酱推送成功")
         else:
-            print("Server酱推送失败", ret)
+            print("❌ Server酱推送失败:", ret)
     except Exception as e:
-        print("Server酱推送异常", e)
+        print("❌ Server酱推送异常:", str(e))
 
-# 执行完自动推送
-if __name__ == "__main__":
-    # 你原来的主逻辑代码...
-    
-    # 最后加上推送
-    push_title = "小米运动刷步完成"
-    push_msg = f"账号：{user}\n本次步数：{step}"
+# ======================
+# 推送消息内容（自动统计多账号结果）
+# ======================
+if SERVERCHAN_KEY:
+    push_title = "🏃 小米运动刷步执行完成"
+    push_msg = f"""
+执行账号总数：{total_account}
+成功：{success_account}
+失败：{fail_account}
+"""
     serverchan_push(SERVERCHAN_KEY, push_title, push_msg)
