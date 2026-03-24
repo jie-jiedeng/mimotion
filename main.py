@@ -324,8 +324,8 @@ if __name__ == "__main__":
         # endregion
         execute()
         # ======================
-        # Server酱 推送（多账号完美适配）
-        # ======================
+# Server酱 推送（最终修复版 · 多账号完美支持）
+# ======================
 def serverchan_push(sendkey, title, content):
     import requests
     if not sendkey:
@@ -345,11 +345,12 @@ def serverchan_push(sendkey, title, content):
     except Exception as e:
         print("❌ Server酱推送异常:", str(e))
 
-# ======================
-# 推送消息内容（自动统计多账号结果）
-# ======================
+# 从CONFIG读取Server酱密钥
+SERVERCHAN_KEY = config.get("SERVERCHAN_KEY", "")
+
+# 执行推送
 if SERVERCHAN_KEY:
-    push_title = "🏃 小米运动刷步执行完成"
+    push_title = "🏃 小米运动刷步完成"
     push_msg = f"""
 执行账号总数：{total_account}
 成功：{success_account}
